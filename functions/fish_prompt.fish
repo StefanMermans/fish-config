@@ -7,6 +7,8 @@ function fish_prompt --description 'Write out the prompt'
     set -l prompt_status ""
     set -l user_name (id -un)
     set -l user_color (set_color $fish_color_command)
+    set -g __fish_git_prompt_showdirtystate true
+    set -g __fish_git_prompt_showcolorhints true
 
     # Since we display the prompt on a new line allow the directory names to be longer.
     set -q fish_prompt_pwd_dir_length
