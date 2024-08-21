@@ -9,8 +9,9 @@ function fish_prompt --description 'Write out the prompt'
     set -l user_color (set_color $fish_color_command)
     set -g __fish_git_prompt_showdirtystate true
     set -g __fish_git_prompt_showcolorhints true
-    set -g __fish_git_prompt_color_prefix c4c4c4
-    set -g __fish_git_prompt_color_suffix c4c4c4
+    set -g __fish_git_prompt_color_prefix a4a4a4
+    set -g __fish_git_prompt_color_suffix a4a4a4
+    set -g __fish_git_prompt_color_branch white
 
     # Since we display the prompt on a new line allow the directory names to be longer.
     set -q fish_prompt_pwd_dir_length
