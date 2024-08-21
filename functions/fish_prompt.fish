@@ -9,6 +9,8 @@ function fish_prompt --description 'Write out the prompt'
     set -l user_color (set_color $fish_color_command)
     set -g __fish_git_prompt_showdirtystate true
     set -g __fish_git_prompt_showcolorhints true
+    set -g __fish_git_prompt_color_prefix c4c4c4
+    set -g __fish_git_prompt_color_suffix c4c4c4
 
     # Since we display the prompt on a new line allow the directory names to be longer.
     set -q fish_prompt_pwd_dir_length
@@ -20,7 +22,7 @@ function fish_prompt --description 'Write out the prompt'
         set prompt_status $status_color "[" $last_status "]" $normal
     end
 
-    echo -s $user_color $user_name $normal '@' $cwd_color (prompt_pwd) $vcs_color (fish_vcs_prompt) $normal ' ' $prompt_status $normal
+    echo -s $user_color $user_name $normal '@' $cwd_color (prompt_pwd) $normal (fish_vcs_prompt) $normal ' ' $prompt_status $normal
     echo -n -s '' $normal
 end
 
