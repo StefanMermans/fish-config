@@ -6,7 +6,7 @@ function fish_prompt --description 'Write out the prompt'
     set -l vcs_color (set_color brpurple)
     set -l prompt_status ""
     set -l user_name (id -un)
-    set -l user_color (set_color $fish_color_command)
+    set -l user_color (set_color aaaaff)
     set -g __fish_git_prompt_showdirtystate true
     set -g __fish_git_prompt_showcolorhints true
     set -g __fish_git_prompt_color_prefix a4a4a4
