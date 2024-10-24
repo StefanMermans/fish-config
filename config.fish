@@ -17,11 +17,9 @@ if status is-interactive
     # Node
     set -l node_color (set_color 77dd77)
     nvm use node --silent
-    echo -s $node_color "Node: " $normal_color (node --version)
     
     # PHP
     set -l php_color (set_color ee7777)
     set -l php_version (php --version | head -n 1 | grep -oE "\d+\.\d+\.\d+")
-    echo -s $php_color "PHP:  " $normal_color "v" $php_version
 end
 
