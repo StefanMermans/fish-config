@@ -13,6 +13,13 @@ function init_project
         begin
             mkdir -p vendor
             composer install > vendor/install.log 2>&1
+
+            if test -f .env
+            begin
+                php artisan migrate
+                php artisan db:seed
+            end
+            
             echo "🐘 Composer ready"
         end &
     end
