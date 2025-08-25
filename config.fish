@@ -21,5 +21,10 @@ if status is-interactive
     # PHP
     set -l php_color (set_color ee7777)
     set -l php_version (php --version | head -n 1 | grep -oE "\d+\.\d+\.\d+")
+
+    # Load jenv automatically by adding
+    if command -v jenv > /dev/null
+        jenv init - | source
+    end
 end
 
