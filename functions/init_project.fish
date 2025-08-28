@@ -15,9 +15,10 @@ function init_project
             composer install > vendor/install.log 2>&1
 
             if test -f .env
-            begin
-                php artisan migrate
-                php artisan db:seed
+                begin
+                    php artisan migrate
+                    php artisan db:seed
+                end
             end
             
             echo "🐘 Composer ready"
