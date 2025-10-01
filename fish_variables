@@ -5,8 +5,7 @@ SETUVAR --export HERD_PHP_80_INI_SCAN_DIR:/Users/stefan/Library/Application\x20S
 SETUVAR --export HERD_PHP_81_INI_SCAN_DIR:/Users/stefan/Library/Application\x20Support/Herd/config/php/81/
 SETUVAR --export HERD_PHP_82_INI_SCAN_DIR:/Users/stefan/Library/Application\x20Support/Herd/config/php/82/
 SETUVAR --export HERD_PHP_83_INI_SCAN_DIR:/Users/stefan/Library/Application\x20Support/Herd/config/php/83/
-SETUVAR --export PHP_INI_SCAN_DIR:/Users/stefan/Library/Application\x20Support/Herd/config/php/
-SETUVAR __fish_initialized:3400
+SETUVAR __fish_initialized:3800
 SETUVAR fish_color_autosuggestion:6272a4
 SETUVAR fish_color_cancel:ff5555\x1e\x2d\x2dreverse
 SETUVAR fish_color_command:8be9fd
