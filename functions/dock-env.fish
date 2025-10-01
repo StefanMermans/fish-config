@@ -8,7 +8,7 @@ function _ensure_docker_ready --description 'Ensure Docker daemon is running and
     if not isopen "Docker"
         echo "🐳 Docker not running, starting Docker Desktop..."
         open -a "Docker"
-    end 
+    end
     
     echo "⏳ Waiting for Docker daemon to be ready..."
     for i in (seq $docker_timeout)
@@ -34,8 +34,6 @@ function dock-env --description 'Run docker compose commands for any compose pro
     if test $status -ne 0
         return 1
     end
-
-    echo "Using compose file: $compose_file_path"
     
     docker compose --project-directory (dirname $compose_file_path) $argv[2..-1]
 end

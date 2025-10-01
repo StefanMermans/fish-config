@@ -4,7 +4,7 @@ function find-compose-path --description 'Find the Docker Compose file path for 
     set -l compose_path (string split " " -- $compose_info | string match -r '/.*/docker-compose\.ya?ml$')
     
     if test -z "$compose_path"
-        echo "❌ Could not find \"$compose_file_name\" compose file"
+        echo "❌ Could not find \"$compose_file_name\" compose file" >&2
         return 1
     end
     
