@@ -2,29 +2,10 @@ set -x NVM_DIR "$HOME/.nvm"
 set -g fish_greeting ""
 set -x ANDROID_HOME "$HOME/Library/Android/sdk"
 
-load_nvm > /dev/stderr
-
-# Commands to run in interactive sessions can go here
 if status is-interactive
-    set -l normal_color (set_color normal)
-
-    # Idk what this does really
     set -x GPG_TTY (tty)
-
-    # Set up homebrew
-    eval (/opt/homebrew/bin/brew shellenv)
-
-    # Node
-    set -l node_color (set_color 77dd77)
-    nvm use node --silent
-    
-    # PHP
-    set -l php_color (set_color ee7777)
-    set -l php_version (php --version | head -n 1 | grep -oE "\d+\.\d+\.\d+")
-
-    # Load jenv automatically by adding
-    if command -v jenv > /dev/null
-        jenv init - | source
-    end
 end
 
+eval (/opt/homebrew/bin/brew shellenv)
+nvm load
+load_jenv
