@@ -5,3 +5,5 @@
 # Jetbrains
 .idea
 
+# User specific config
+fish_variables
