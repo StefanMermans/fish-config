@@ -19,7 +19,7 @@ function _load_nvm --on-variable="PWD"
   echo -n "🛠️ Using node $requested_node_version from nvmrc. "
 
   if not test (nvm use $requested_node_version)
-    echo "Failed to load node version $requested_node_version."
+    echo "Failed to load node version $requested_node_version." >&2
     _revert_to_default_nvm
   else
     echo "Loaded node version $requested_node_version."
