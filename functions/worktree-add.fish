@@ -45,13 +45,10 @@ function worktree-add --description 'Add a git worktree and initialize the larav
     git worktree add "$target" "$branch"
     or return $status
 
-    # Copy everything else, but don't clobber what git worktree already populated; skip .git, node_modules, vendor.
-    rsync -a \
-        --ignore-existing \
-        --exclude '.git/' \
-        --exclude 'node_modules/' \
-        --exclude 'vendor/' \
-        "$repo_root"/ "$target"/
+    # Copy untracked files using copy-on-write; skip .git, don't clobber tracked files.
+    for item in (command find "$repo_root" -maxdepth 1 -mindepth 1 ! -name '.git')
+        cp -c -n -R "$item" "$target/"
+    end
 
     cd "$target"
 
@@ -65,28 +62,8 @@ function worktree-add --description 'Add a git worktree and initialize the larav
         herd secure
         herd-auto-isolate
     end
-
-    _install_deps
 end
 
 function _is_herd_project
     test -f artisan
-end
-
-function _install_deps
-  set -l pids
-
-  if test -e composer.json
-    composer install &
-    set pids $pids $last_pid
-  end
-
-  if test -e package.json
-    npm install &
-    set pids $pids $last_pid
-  end
-
-  if test (count $pids) -gt 0
-    wait $pids
-  end
 end
