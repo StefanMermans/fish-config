@@ -6,18 +6,20 @@ function worktree-add --description 'Add a git worktree and initialize the larav
         return 2
     end
 
-    # Find repo root for whatever git repo we're in
-    set -l repo_root (git rev-parse --show-toplevel 2>/dev/null)
-    if test $status -ne 0; or test -z "$repo_root"
+    # Current worktree root (source for copying untracked files)
+    set -l current_root (git rev-parse --show-toplevel 2>/dev/null)
+    if test $status -ne 0; or test -z "$current_root"
         echo "Error: not inside a git repository."
         return 2
     end
 
-    # Worktrees live alongside the repo: <parent>/<repo>.worktrees/<branch>/
-    set -l repo_dirname (basename "$repo_root")
-    set -l repo_parent (dirname "$repo_root")
-    set -l worktrees_root "$repo_parent/$repo_dirname.worktrees" # Worktrees 1 level up
-    # set -l worktrees_root "$repo_parent/$repo_dirname/worktrees" # Worktrees in repo dir
+    # Main repo root (always the first entry in worktree list)
+    set -l main_root (git worktree list --porcelain | string match -r '^worktree (.+)' | head -2 | tail -1)
+
+    # Worktrees live alongside the main repo: <parent>/<repo>.worktrees/<branch>/
+    set -l repo_dirname (basename "$main_root")
+    set -l repo_parent (dirname "$main_root")
+    set -l worktrees_root "$repo_parent/$repo_dirname.worktrees"
     set -l target "$worktrees_root/$branch"
 
     echo "Setting up worktree in $target"
@@ -46,7 +48,7 @@ function worktree-add --description 'Add a git worktree and initialize the larav
     or return $status
 
     # Copy untracked files using copy-on-write; skip .git, don't clobber tracked files.
-    for item in (command find "$repo_root" -maxdepth 1 -mindepth 1 ! -name '.git')
+    for item in (command find "$current_root" -maxdepth 1 -mindepth 1 ! -name '.git')
         cp -c -n -R "$item" "$target/"
     end
 
