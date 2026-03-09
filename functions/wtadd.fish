@@ -1,8 +1,8 @@
-function worktree-add --description 'Add a git worktree and initialize the laravel repo'
-    # Usage: gwadd <branch>
+function wtadd --description 'Add a git worktree and initialize the laravel repo'
+    # Usage: wtadd <branch>
     set -l branch $argv[1]
     if test -z "$branch"
-        echo "Usage: gwadd <branch>"
+        echo "Usage: wtadd <branch>"
         return 2
     end
 
