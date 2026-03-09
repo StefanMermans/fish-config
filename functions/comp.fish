@@ -1,4 +1,7 @@
 function comp --wraps=composer --description 'alias comp composer'
-  composer $argv
-        
+  if is-herd-project
+    php (which composer) $argv
+  else
+    command composer $argv
+  end
 end
