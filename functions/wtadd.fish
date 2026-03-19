@@ -65,8 +65,9 @@ function wtadd --description 'Add a git worktree and initialize the laravel repo
     cd "$target"
 
     if _is_herd_project
+        set -l site_name (basename "$target")
         if test -f ".env"
-            sed -i '' "s|^APP_URL=.*|APP_URL=https://$branch.test|" .env
+            sed -i '' "s|^APP_URL=.*|APP_URL=https://$site_name.test|" .env
         end
 
         herd link
