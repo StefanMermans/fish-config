@@ -47,19 +47,28 @@ function wtadd --description 'Add a git worktree and initialize the laravel repo
     git worktree add "$target" "$branch"
     or return $status
 
-    # Copy untracked files using copy-on-write; skip .git, don't clobber tracked files.
-    for item in (command find "$current_root" -maxdepth 1 -mindepth 1 ! -name '.git')
-        cp -c -n -R "$item" "$target/"
-    end
+    # TODO: this is slow. CP copy on write setup
+    # echo "Copying files..."
+    # # Copy untracked files using copy-on-write; skip .git, don't clobber tracked files.
+    # for item in (command find "$current_root" -maxdepth 1 -mindepth 1 ! -name '.git')
+    #     cp -c -n -R "$item" "$target/"
+    # end
+    # echo "Files copied!"
+
+    echo "Copying files..."
+    command rsync -a \
+        --ignore-existing \
+        --exclude '.git/' \
+        "$current_root"/ "$target"/
+    echo "Files copied!"
 
     cd "$target"
 
-    # change `APP_URL=...` to `APP_URL=https://$branch.test` in `.env`
-    if test -f ".env"
-        sed -i '' "s|^APP_URL=.*|APP_URL=https://$branch.test|" .env
-    end
-
     if _is_herd_project
+        if test -f ".env"
+            sed -i '' "s|^APP_URL=.*|APP_URL=https://$branch.test|" .env
+        end
+
         herd link
         herd secure
         herd-auto-isolate
